@@ -14,8 +14,12 @@ export default function CourseRoutes(app) {
   app.delete("/api/courses/:cid", deleteCourse);
 
   const findAllCourses = async (req, res) => {
-    const courses = await dao.findAllCourses();
-    res.json(courses);
+    try {
+      const courses = await dao.findAllCourses();
+      res.json(courses);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   };
   app.get("/api/courses", findAllCourses);
 
