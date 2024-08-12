@@ -15,18 +15,23 @@ export default function UserRoutes(app) {
 
   const findAllUsers = async (req, res) => {
     const { role, name } = req.query;
-    if (role) {
-      const users = await dao.findUsersByRole(role);
+    try {
+      if (role) {
+        const users = await dao.findUsersByRole(role);
+        res.json(users);
+        return;
+      }
+      if (name) {
+        const users = await dao.findUsersByPartialName(name);
+        res.json(users);
+        return;
+      }
+      const users = await dao.findAllUsers();
       res.json(users);
-      return;
+    } catch (err) {
+      console.error('Error retrieving users:', err);
+      res.status(500).send('Server error');
     }
-    if (name) {
-      const users = await dao.findUsersByPartialName(name);
-      res.json(users);
-      return;
-    }
-    const users = await dao.findAllUsers();
-    res.json(users);
   };
   app.get("/api/users", findAllUsers);
 
