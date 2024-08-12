@@ -13,7 +13,8 @@ import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
 mongoose.connect(CONNECTION_STRING)
-  .then(() => console.log("Connected to MongoDB"));
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error(error));
 const app = express();
 app.use(cors({
   credentials: true,
