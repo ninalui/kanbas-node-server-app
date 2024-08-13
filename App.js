@@ -29,7 +29,6 @@ const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kanbas",
   resave: false,
   saveUninitialized: false,
-  cookie: {},
 };
 if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
